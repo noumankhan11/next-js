@@ -1,10 +1,10 @@
-import Image from 'next/image';
-import { lusitana } from '@/app/ui/fonts';
-import Search from '@/app/ui/search';
+import Image from "next/image";
+import { lusitana } from "@/app/ui/fonts";
+import Search from "@/app/ui/search";
 import {
   CustomersTableType,
   FormattedCustomersTable,
-} from '@/app/lib/definitions';
+} from "@/app/lib/definitions";
 
 export default async function CustomersTable({
   customers,
@@ -13,7 +13,8 @@ export default async function CustomersTable({
 }) {
   return (
     <div className="w-full">
-      <h1 className={`${lusitana.className} mb-8 text-xl md:text-2xl`}>
+      <h1
+        className={`${lusitana.className} mb-8 text-xl md:text-2xl`}>
         Customers
       </h1>
       <Search placeholder="Search customers..." />
@@ -25,8 +26,7 @@ export default async function CustomersTable({
                 {customers?.map((customer) => (
                   <div
                     key={customer.id}
-                    className="mb-2 w-full rounded-md bg-white p-4"
-                  >
+                    className="mb-2 w-full rounded-md bg-white p-4">
                     <div className="flex items-center justify-between border-b pb-4">
                       <div>
                         <div className="mb-2 flex items-center">
@@ -49,11 +49,15 @@ export default async function CustomersTable({
                     <div className="flex w-full items-center justify-between border-b py-5">
                       <div className="flex w-1/2 flex-col">
                         <p className="text-xs">Pending</p>
-                        <p className="font-medium">{customer.total_pending}</p>
+                        <p className="font-medium">
+                          {customer.total_pending}
+                        </p>
                       </div>
                       <div className="flex w-1/2 flex-col">
                         <p className="text-xs">Paid</p>
-                        <p className="font-medium">{customer.total_paid}</p>
+                        <p className="font-medium">
+                          {customer.total_paid}
+                        </p>
                       </div>
                     </div>
                     <div className="pt-4 text-sm">
@@ -65,7 +69,9 @@ export default async function CustomersTable({
               <table className="hidden min-w-full rounded-md text-gray-900 md:table">
                 <thead className="rounded-md bg-gray-50 text-left text-sm font-normal">
                   <tr>
-                    <th scope="col" className="px-4 py-5 font-medium sm:pl-6">
+                    <th
+                      scope="col"
+                      className="px-4 py-5 font-medium sm:pl-6">
                       Name
                     </th>
                     <th scope="col" className="px-3 py-5 font-medium">
