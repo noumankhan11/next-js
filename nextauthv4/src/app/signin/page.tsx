@@ -1,3 +1,6 @@
+"use client";
+
+import { signIn } from "next-auth/react";
 import React from "react";
 
 export default function page() {
@@ -6,9 +9,17 @@ export default function page() {
       <div className="form bg-gray-800 w-[400px] rounded-lg p-5">
         <h1 className="text-2xl border-b-2 mb-2">Sign In, Form</h1>
         <form
-          action={async () => {
-            "use server";
-            console.log(FormData);
+          action={async (formData) => {
+            // await signin(formData);
+            const email = formData.get("email") as string;
+            const password = formData.get("password") as string;
+            const result = await signIn("credentials", {
+              redirect: false,
+              email,
+              password,
+              callbackUrl: "/",
+            });
+            console.log("result", result);
           }}
           className="flex flex-col gap-4">
           <label className="text-gray-300">Email</label>
@@ -23,7 +34,7 @@ export default function page() {
           <input
             type="password"
             placeholder="Passoword"
-            name="username"
+            name="password"
             className="bg-gray-700 p-2 rounded-lg"
           />
 

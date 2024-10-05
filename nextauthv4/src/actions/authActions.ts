@@ -2,6 +2,7 @@
 import UserModel from "@/models/usermodel";
 import dbConnect from "@/utils/dbConnection";
 import bcrypt from "bcryptjs";
+import { signIn } from "next-auth/react";
 
 export const signup = async (formData: FormData) => {
   const username = formData.get("username") as string;
@@ -15,6 +16,7 @@ export const signup = async (formData: FormData) => {
     ", pass: ",
     password
   );
+  console.log("email: ", email, ", password: ", password);
   await dbConnect();
   try {
     const existingUser = await UserModel.findOne({ email });
@@ -34,4 +36,19 @@ export const signup = async (formData: FormData) => {
   } catch (error: any) {
     throw new Error(error);
   }
+};
+
+// signIn function
+
+export const signin = async (formData: FormData) => {
+  const email = formData.get("email") as string;
+  const password = formData.get("password") as string;
+  await signIn("credentials", {
+    redirect: false,
+    email,
+    password,
+    callbackUrl: "/",
+  });
+
+  console.log("Loged in successfully!");
 };

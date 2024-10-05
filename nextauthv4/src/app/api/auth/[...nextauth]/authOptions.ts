@@ -13,17 +13,24 @@ export const authOptions: NextAuthOptions = {
         password: { label: "Password", type: "password" },
       },
       async authorize(credentials: any) {
+        const email = credentials.email as string | undefined;
+        const password = credentials.password as string | undefined;
+
+        if (!email || !password) {
+          throw new Error("Please fill all the fields");
+        }
+
         await dbConnect();
         try {
           const user = await UserModel.findOne({
-            email: credentials.indetifier,
+            email,
           });
           if (!user) {
             throw new Error("No user found with this email");
           }
 
           const isValidPassword = await bcrypt.compare(
-            credentials.password,
+            password,
             user.password
           );
           if (isValidPassword) {
@@ -37,4 +44,11 @@ export const authOptions: NextAuthOptions = {
       },
     }),
   ],
+  pages: {
+    signIn: "/signin",
+  },
+  session: {
+    strategy: "jwt",
+  },
+  secret: "mysecretKey",
 };
